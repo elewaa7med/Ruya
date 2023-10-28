@@ -1,0 +1,173 @@
+﻿@model SmartAdmin.WebUI.Models.Academic_Info.AcademicInfoUpdateModel
+@{
+    ViewData["Title"] = "Academic Information";
+    ViewData["PageName"] = "Academic Information";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-edit'></i> Academic Information";
+    ViewData["Category1"] = "Form Stuff";
+    ViewData["PageDescription"] = "";
+    ViewData["Id"] = ViewBag.Id;
+    ViewData["type"] = "View";
+}
+
+
+<form enctype="multipart/form-data" class="was-validated" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Applicant Personal Questions
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="panel-tag">
+                           <h2>Does the student suffer from:</h2>
+                           <ul>
+                               <li>Autism</li>
+                               <li>ADHD/ ADD</li>
+                               <li>Speech delay</li>
+                               <li>Growth delay</li>
+                               <li>Dyscalculia</li>
+                               <li>Dyslexia</li>
+                               <li>Dyspraxia</li>
+                               <li>Emotional or Behavioral Difficulties</li>
+                               <li>Learning difficulties</li>
+                           </ul>
+
+                        </div>
+                         <div class="panel-tag" style="color:#f00">
+                                    Note: You must disclose any factor which may affect your child’s ability to cope independently within the mainstream school environment. If your child
+                                    has learning difficulties and has an IEP, this must be presented as part of the application. Failure to disclose any learning difficulties or medical
+                                    conditions at the time of application may result subsequently in a place being withdrawn. Any offer made by the school is subject to being able to meet
+                                    the individual needs of the child. Please indicate if your child has ever been diagnosed with or received additional support for the previous factors.
+                                </div>
+                        <div class="row">
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        Does the student suffer from any of the previous factors, if yes please specify
+                                    </label>
+                                    <select class="custom-select" id="SufferFromPreviousFactor" asp-for="SufferFromPreviousFactor" asp-items="Html.GetEnumSelectList<boolean>()">
+                                        <option selected disabled value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group " @(Model.SufferFromPreviousFactor != 2 ? "style=visibility:hidden" : "")>
+                                    <label class="form-label" for="SufferFromPreviousFactorValue">specify here Please</label> <span class="text-danger">*</span>
+                                    <input type="text" id="SufferFromPreviousFactorValue" class="form-control" asp-for="SufferFromPreviousFactorValue">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        Has your child received services for learning disorder, special education, or previous program modification?
+                                    </label>
+                                    <select class="custom-select" id="SepecialEducation" asp-for="SepecialEducation" asp-items="Html.GetEnumSelectList<boolean>()">
+                                        <option selected disabled value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group" @(Model.SepecialEducation != 2 ? "style=visibility:hidden" : "")>
+                                    <label class="form-label" for="SufferFromPreviousFactorValue">specify here Please</label> <span class="text-danger">*</span>
+                                    <input type="text" id="SepecialEducationValue" class="form-control" asp-for="SepecialEducationValue">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        Has the applicant skipped or repeated a grade /year? IF yes. which grade/year?
+                                    </label>
+                                    <select class="custom-select" id="SkipeedRepeatedGrade" asp-for="SkipeedRepeatedGrade" asp-items="Html.GetEnumSelectList<boolean>()">
+                                        <option selected disabled value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+
+                                <div class="form-group" @(Model.SkipeedRepeatedGrade != 2 ? "style=visibility:hidden" : "")>
+                                    <label class="form-label" for="SkipeedRepeatedGradeValue">specify here Please</label> <span class="text-danger">*</span>
+                                    <input type="text" id="SkipeedRepeatedGradeValue" class="form-control" asp-for="SkipeedRepeatedGradeValue">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        Are you aware of any special needs (physical, social or academic) your child might have?
+                                    </label>
+                                    <select class="custom-select" id="RepecialNeed" asp-for="RepecialNeed" asp-items="Html.GetEnumSelectList<boolean>()">
+                                        <option selected disabled value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group" @(Model.RepecialNeed != 2 ? "style=visibility:hidden" : "")>
+                                    <label class="form-label" for="RepecialNeedValue">specify here Please</label> <span class="text-danger">*</span>
+                                    <input type="text" id="RepecialNeedValue" class="form-control" asp-for="RepecialNeedValue">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        Has the applicant received any award ? IF yes, what ?
+                                    </label>
+                                    <select class="custom-select" id="ReceivedAnyAward" asp-for="ReceivedAnyAward" asp-items="Html.GetEnumSelectList<boolean>()">
+                                        <option selected disabled value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group" @(Model.ReceivedAnyAward != 2 ? "style=visibility:hidden" : "")>
+                                    <label class="form-label" for="ReceivedAnyAwardValue">specify here Please</label> <span class="text-danger">*</span>
+                                    <input type="text" id="ReceivedAnyAwardValue" class="form-control" asp-for="ReceivedAnyAwardValue">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xl-12 mb-3 pl-4">
+            <a class="btn btn-primary waves-effect waves-themed mr-3 "  href="./view/Mother_Info?id=@ViewBag.Id"> Previous </a>
+                <a class="btn btn-primary waves-effect waves-themed mr-3" href="./view/Tuition_Information?id=@ViewBag.Id">Next</a>
+
+        </div>
+    </div>
+</form>
+
+@section ScriptsBlock {
+<script type="text/javascript">
+    var example_gridsize = $("#example-gridsize");
+    $("#gridrange").on("input change", function () {
+        //do something
+        example_gridsize.attr("placeholder", ".col-" + $(this).val());
+        example_gridsize.parent().removeClass().addClass("col-" + $(this).val())
+        console.log("col-" + $(this).val());
+    });
+
+    $('select').on('change', function() {
+        if(this.value == 2){
+            $("#" + this.id + "Value").parent().css({"visibility":"visible"});
+        }else{
+            $("#" + this.id + "Value").parent().css({"visibility":"hidden"});
+        }
+    });
+</script>
+}

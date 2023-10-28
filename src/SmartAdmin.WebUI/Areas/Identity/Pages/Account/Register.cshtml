@@ -1,0 +1,81 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["PageName"] = "register";
+}
+
+@section PageHeading {
+    <div class="col-xl-12">
+        <h2 class="fs-xxl fw-500 text-white text-center">
+            Register now, its free!
+        </h2>
+    </div>
+}
+
+<div class="col-xl-6 ml-auto mr-auto">
+
+
+    <div class="card p-4 rounded-plus bg-faded">
+        <form id="js-login" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+
+            <div style="text-align:center">
+                <img src="~/img/logoRuya.png" />
+            </div>
+            <hr />
+            <div asp-validation-summary="All" class="alert alert-primary text-dark"></div>
+            <div class="form-group row">
+                <label class="col-xl-12 form-label">Your first and last name</label>
+                <div class="col-6 pr-1">
+                    <input type="text" asp-for="Input.FirstName" class="form-control" placeholder="First Name" />
+                    <span class="invalid-feedback" asp-validation-for="Input.FirstName">Sorry, you missed this one.</span>
+                </div>
+                <div class="col-6 pl-1">
+                    <input type="text" asp-for="Input.LastName" class="form-control" placeholder="Family Name" />
+                    <span class="invalid-feedback" asp-validation-for="Input.LastName">Sorry, you missed this one.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" asp-for="Input.Email">Email will be needed for verification and account recovery</label>
+                <input type="email" asp-for="Input.Email" class="form-control" placeholder="Email for verification" required="required" />
+                <span class="invalid-feedback" asp-validation-for="Input.Email">Sorry, you missed this one.</span>
+                <div class="help-block">Your email will also be your username</div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" asp-for="Input.Password">Please pick a password</label>
+                <input type="password" asp-for="Input.Password" class="form-control" placeholder="Email for verification (minimum 6 characters)" required="required" />
+                <span class="invalid-feedback" asp-validation-for="Input.Password">Sorry, you missed this one.</span>
+                <div class="help-block">Your password must be 6-20 characters long.</div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" asp-for="Input.ConfirmPassword">Please confirm your password</label>
+                <input type="password" asp-for="Input.ConfirmPassword" class="form-control" placeholder="Email for verification (minimum 6 characters)" required="required" />
+                <span class="invalid-feedback" asp-validation-for="Input.ConfirmPassword">Sorry, you missed this one.</span>
+            </div>
+            <div class="form-group demo">
+            </div>
+            <div class="row no-gutters">
+                <div class="col-md-6 mr-auto ml-auto">
+                    <button id="js-login-btn" type="submit" class="btn btn-block btn-danger btn-lg mt-3">Create New User</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $("#js-login-btn").click(function (event) {
+            // Fetch form to apply custom Bootstrap validation
+            var form = $("#js-login");
+
+            if (form[0].checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            form.addClass('was-validated');
+            // Perform ajax submit here...
+        });
+    </script>
+}

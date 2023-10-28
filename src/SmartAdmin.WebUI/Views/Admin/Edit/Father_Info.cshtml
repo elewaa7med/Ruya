@@ -1,0 +1,176 @@
+﻿@model SmartAdmin.WebUI.Models.Father_Info.FatherInfoUpdateModel
+@{
+    ViewData["Title"] = "Father Information";
+    ViewData["PageName"] = "Father Details";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-edit'></i> Father's Details";
+    ViewData["Category1"] = "Form Stuff";
+    ViewData["PageDescription"] = "";
+    ViewData["error"] = ViewBag.Errors;
+}
+<form enctype="multipart/form-data" class="was-validated" method="post">
+    <input type="hidden" asp-for="ApplicantId" value="@ViewBag.Id" />
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Father Information
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group  ">
+                                    <label class="form-label " for="Student_IdORIqama">Father’s ID number or Iqama number</label> <span class="text-danger">*</span>
+                                    <input type="number" id="Student_IdORIqama" class="form-control" asp-for="Father_IdORIqama">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        Father’s Nationality
+                                    </label>
+                                    <select class="custom-select" id="single-default" asp-for="FatherNationality" asp-items="Html.GetEnumSelectList<Nationality>()">
+                                        <option selected disabled value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        Father’s religion
+                                    </label>
+                                    <select class="custom-select" id="single-default" asp-for="FatherRegion" asp-items="Html.GetEnumSelectList<Religion>()">
+                                        <option selected disabled value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Father’s first name in English as appeared on passport</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="FatherFirstNameEnglish">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Father’s middle name in English as appeared on passport</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="FatherMiddleNameEnglish">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Father’s family name in English as appeared on passport</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="FatherFamilyNameEnglish">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Father’s first name in Arabic as appeared on passport</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="FatherFirstNameArabic">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Father’s middle name in Arabic as appeared on passport</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="FatherMiddleNameArabic">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Father’s family name in Arabic as appeared on passport</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="FatherFamilyNameArabic">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Father’s qualification</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="FatherQualification">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Father’s occupation</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="FatherOccupation">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Father’s place of work</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="FatherPlaceOfWork">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Father’s work number</label> <span class="text-danger">*</span>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">966</span>
+                                        </div>
+                                        <input type="number" id="StudentFirstNameArabic" class="form-control" asp-for="FatherWorkNumber" placeholder="5XXXXXXXXX">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Father’s mobile number</label> <span class="text-danger">*</span>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">966</span>
+                                        </div>
+                                        <input type="number" id="StudentFirstNameArabic" class="form-control" asp-for="FatherMobileNumber" placeholder="5XXXXXXXXX">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Father’s email address</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="FatherEmailAddress">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 mb-3 pl-4">
+            <button type="submit" asp-page-handler="Father_Info" asp-route-dir="previous" class="btn btn-primary waves-effect waves-themed mr-3 "> Previous </button>
+            <button type="submit" asp-page-handler="Father_Info" asp-route-dir="submit" class="btn btn-success waves-effect waves-themed mr-3">Submit</button>
+            <button type="submit" asp-page-handler="Father_Info" asp-route-dir="next" id="next-up" class="btn btn-primary waves-effect waves-themed mr-3 "> Next </button>
+        </div>
+    </div>
+</form>
+
+@section ScriptsBlock {
+<script type="text/javascript">
+    var example_gridsize = $("#example-gridsize");
+    $("#gridrange").on("input change", function () {
+        //do something
+        example_gridsize.attr("placeholder", ".col-" + $(this).val());
+        example_gridsize.parent().removeClass().addClass("col-" + $(this).val())
+        console.log("col-" + $(this).val());
+    });
+
+</script>
+}

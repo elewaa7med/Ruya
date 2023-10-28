@@ -1,0 +1,156 @@
+﻿@model SmartAdmin.WebUI.Models.Mother_Info.MotherInfoUpdateModel
+@{
+    ViewData["Title"] = "Mother Details";
+    ViewData["PageName"] = "Mother Details";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-edit'></i> Mother's Details";
+    ViewData["Category1"] = "Form Stuff";
+    ViewData["PageDescription"] = "";
+    ViewData["Id"] = ViewBag.Id;
+    ViewData["type"] = "View";
+}
+<form enctype="multipart/form-data" class="was-validated" method="post">
+    <input type="hidden" asp-for="ApplicantId" value="@ViewBag.Id" />
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Mother Details
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+
+                        <div class="row">
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group  ">
+                                    <label class="form-label " for="Student_IdORIqama">Mother’s ID number or Iqama number</label> <span class="text-danger">*</span>
+                                    <input type="number" id="Student_IdORIqama" class="form-control" asp-for="Mother_IdORIqama">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        Mother’s Nationality
+                                    </label>
+                                    <select class="custom-select" id="single-default" asp-for="MotherNationality" asp-items="Html.GetEnumSelectList<Nationality>()">
+                                        <option selected disabled value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        Mother’s religion
+                                    </label>
+                                    <select class="custom-select" id="single-default" asp-for="MotherRegion" asp-items="Html.GetEnumSelectList<Religion>()">
+                                        <option selected disabled value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Mother’s first name in English as appeared on passport</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="MotherFirstNameEnglish">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Mother’s middle name in English as appeared on passport</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="MotherMiddleNameEnglish">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Mother’s family name in English as appeared on passport</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="MotherFamilyNameEnglish">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Mother’s qualification</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="MotherQualification">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Mother’s occupation</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="MotherOccupation">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Mother’s place of work</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="MotherPlaceOfWork">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Mother’s work number</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">966</span>
+                                        </div>
+                                        <input type="number" id="StudentFirstNameArabic" class="form-control" asp-for="MotherWorkNumber" placeholder="5XXXXXXXXX">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Mother’s mobile number</label> <span class="text-danger">*</span>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">966</span>
+                                        </div>
+                                        <input type="number" id="StudentFirstNameArabic" class="form-control" asp-for="MotherMobileNumber" placeholder="5XXXXXXXXX">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">Mother’s email address</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="MotherEmailAddress">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 mb-3 pl-4">
+            <a class="btn btn-primary waves-effect waves-themed mr-3 " href="./view/Father_Info?id=@ViewBag.Id"> Previous </a>
+            <a class="btn btn-primary waves-effect waves-themed mr-3" href="./view/Academic_Info?id=@ViewBag.Id">Next</a>
+        </div>
+    </div>
+</form>
+
+@section ScriptsBlock {
+<script type="text/javascript">
+    var example_gridsize = $("#example-gridsize");
+    $("#gridrange").on("input change", function () {
+        //do something
+        example_gridsize.attr("placeholder", ".col-" + $(this).val());
+        example_gridsize.parent().removeClass().addClass("col-" + $(this).val())
+        console.log("col-" + $(this).val());
+    });
+
+</script>
+}

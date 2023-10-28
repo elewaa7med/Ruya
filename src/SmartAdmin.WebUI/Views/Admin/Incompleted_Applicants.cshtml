@@ -1,0 +1,276 @@
+﻿@model IEnumerable<SmartAdmin.WebUI.Models.admin.applicant.ApplicantAdminViewModel>
+@{
+    ViewData["Title"] = "Incompleted Applicants";
+    ViewData["PageName"] = "Incompleted Applicants";
+    ViewData["Category1"] = "";
+    ViewData["Heading"] = "Incompleted Applicants";
+    ViewData["PageDescription"] = "";
+    ViewData["FatherEmail"] = ViewBag.FatherEmail;
+    ViewData["MotherEmail"] = ViewBag.MotherEmail;
+}
+@section HeadBlock {
+<link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+<link rel="stylesheet" media="screen, print" href="~/css/fa-solid.css">
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Filter
+                </h2>
+            </div>
+            <div class="panel-container show">
+                <div class="row" style="padding:20px 20px;">
+                    <div class="col-xl-6 mb-3">
+                        <div class="form-group">
+                            <label class="form-label" for="single-default">
+                                current Level
+                            </label>
+                            <select id="selectGrade" class="custom-select" id="single-default" asp-items="@Html.GetEnumSelectList<Grade>()">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 mb-3">
+                        <div class="form-group">
+                            <label class="form-label" for="single-default">
+                                Nationality
+                            </label>
+                            <select id="selectNationality" class="custom-select" id="single-default" asp-items="@Html.GetEnumSelectList<Nationality>()">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 mb-3">
+                        <div class="form-group">
+                            <label class="form-label" for="single-default">
+                                Date of birth From
+                            </label>
+                            <input class="form-control" id="StudentBirthDateFrom" type="date" value="@ViewBag.From">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 mb-3">
+                        <div class="form-group">
+                            <label class="form-label" for="single-default">
+                                Date of birth To
+                            </label>
+                            <input class="form-control" id="StudentBirthDateTo" type="date" value="@ViewBag.To">
+                        </div>
+                    </div>
+                    <div class="col-xl-12 mb-3">
+                        <div class="form-group" style="text-align:center">
+                            <button id="filter" class="btn btn-default waves-effect waves-themed" style="padding:10px 30px;">Filter</button>
+                            <button id="Reset" class="btn btn-default waves-effect waves-themed" style="padding:10px 30px;">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Incompleted <span class="fw-300"><i>Table</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="col-xl-12 mb-3"  >
+                    <div class="form-group" style="text-align:right;padding:20px 0px 0px;" >
+                        <a class="btn btn-default waves-effect waves-themed" asp-controller="Admin"
+                           asp-action="ExportToExcel"
+                           asp-route-From="@ViewBag.From"
+                           asp-route-To="@ViewBag.From"
+                           asp-route-Grade="@ViewBag.Grade"
+                           asp-route-Submited="false"
+                           asp-route-Nationality="@ViewBag.Nationality"> Export Excel</a>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                        <thead>
+                            <tr>
+                                <th>Student's Id OR Iqama</th>
+                                <th>student's first name [English]</th>
+                                <th>student's first name [Arabic]</th>
+                                <th>student's date of birth</th>
+                                <th>student's current Level</th>
+                                <th>student's upcoming school year</th>
+                                <th>student's first language</th>
+                                <th>student's current school </th>
+                                <th>Father E-Mail</th>
+                                <th>Mother E-Mail</th>
+                                <th>School system currently attended by the student </th>
+                                <th>Does the student have siblings at Ruya School</th>
+                                <th>Payment</th>
+                                <th>Operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                @foreach (var item in Model)
+                                {
+                                    bool StudentCurrentLevelbool = Enum.TryParse(@item.StudentCurrentLevel.ToString(), out Grade StudentCurrentLevel);
+                                    bool UpcomingSchoolYearbool = Enum.TryParse(@item.StudentUpcomingSchoolLevel.ToString(), out UpcomingSchoolYear StudentUpcomingSchoolLevel);
+                                    bool SchoolSystemCurrentlyForStudentbool = Enum.TryParse(@item.SchoolSystemCurrentlyForStudent.ToString(), out SchoolSystem SchoolSystemCurrentlyForStudent);
+                                    bool HasSiblingsAtRuyabool = Enum.TryParse(@item.HasSiblingsAtRuya.ToString(), out boolean HasSiblingsAtRuya);
+                                            <tr>
+                                                <td>@item.Student_IdORIqama</td>
+                                                <td>@(item.StudentFirstNameEnglish + " " + @item.Parent.FatherFirstNameEnglish + " " + @item.Parent.FatherMiddleNameEnglish + " " + @item.Parent.FatherFamilyNameEnglish)</td>
+                                                <td>@(item.StudentFirstNameArabic  + " " + @item.Parent.FatherFirstNameArabic + " " + @item.Parent.FatherMiddleNameArabic + " " + @item.Parent.FatherFamilyNameArabic)</td>
+                                                <td>
+                                            @{
+                                                if (item.StudentBirthDate != null)
+                                                    @item.StudentBirthDate.Value.ToShortDateString()
+                                            }
+                                                </td>
+                                                <td>
+                                            @{
+                                                if (StudentCurrentLevelbool == true)
+                                                    @StudentCurrentLevel
+                                            }
+                                                </td>
+                                                <td>
+                                            @{
+                                                if (UpcomingSchoolYearbool == true)
+                                                    @StudentUpcomingSchoolLevel
+                                            }
+                                                </td>
+                                                <td>@item.StudentFirstLanguage</td>
+                                                <td>@item.StudentCurrentSchool</td>
+                                                <td>@item.Parent.FatherEmailAddress</td>
+                                                <td>@item.Parent.MotherEmailAddress</td>
+                                                <td>
+                                            @{
+                                                if (SchoolSystemCurrentlyForStudentbool == true)
+                                                {
+                                                    @SchoolSystemCurrentlyForStudent
+                                                }
+                                            }
+                                                </td>
+                                                <td>
+                                            @{
+                                                if (HasSiblingsAtRuyabool == true)
+                                                    @HasSiblingsAtRuya
+                                            }
+                                                </td>
+                                                <td>
+                                            @{
+                                                if (item.RuyaschoolAdministrationalFeesPath != null)
+                                                {
+                                                                    <a href="./assets/Documents/@item.RuyaschoolAdministrationalFeesPath" target="_blank"> Show Administrational Fees</a>
+                                                }
+                                                else
+                                                {
+                                                                    <p>NO</p>
+                                                }
+                                            }
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group" id="js-demo-nesting" role="group" aria-label="Button group with nested dropdown">
+                                                        <div class="btn-group" role="group">
+                                                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Operation</button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item" title="Stage" href="./View/Policies?Id=@item.Id">View</a>
+                                                                <a class="dropdown-item" title="Stage" asp-controller="Admin" asp-action="PoliciesE" asp-route-Id="@item.Id">Edit</a>
+                                                                <a class="dropdown-item" title="Delete" asp-controller="Admin" asp-action="Delete" asp-route-Id="@item.Id" asp-route-from="Incompleted_Applicants">Delete</a>
+                                                                <a class="dropdown-item" title="Delete" asp-controller="Admin" asp-action="SendeEmailToIncompletedApplicant" asp-route-Id="@item.Id" asp-route-from="Incompleted_Applicants">Sende Email To Incompleted Applicant</a>
+                                                                <a class="dropdown-item" title="Delete" asp-controller="Admin" asp-action="SendEmail" asp-route-Id="@item.Id" asp-route-from="Incompleted_Applicants">Sende Email</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                }
+                            }
+                        </tbody>
+
+
+                        @*<tfoot>
+                            <tr>
+                            <th>OrderID</th>
+                            <th>Recipient</th>
+                            <th>Shipping.Address</th>
+                            <th>Shipping.Country</th>
+                            <th>Shipping.City</th>
+                            <th>Agent</th>
+                            <th>Company</th>
+                            <th>OrganizationID</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>Shipping.Date</th>
+                            <th>Delivery.Date</th>
+                            <th>Payment.Date</th>
+                            <th>Timezone</th>
+                            <th>Payment</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Status</th>
+                            <th>Admin Controls</th>
+                            </tr>
+                            </tfoot>*@
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section ScriptsBlock {
+<script>
+    $("#filter").click(function(){
+        var Grade = null,Nationality = null,Date = null;
+        if($("#selectGrade").val()){
+            Grade = "Grade=" + $("#selectGrade").val();
+        }
+        if($("#selectNationality").val()){
+            Nationality = "Nationality=" + $("#selectNationality").val();
+            if(Grade != null)
+                Nationality = "&"+Nationality;
+        }
+        if($("#StudentBirthDateFrom").val() != null && $("#StudentBirthDateTo").val()){
+            Date = "From=" + $("#StudentBirthDateFrom").val() + "&To=" + $("#StudentBirthDateTo").val();
+            if (Grade != null || Nationality != null)
+                Date = "&"+Date;
+        }
+
+        var url = '@Url.Content("~")' + window.location.pathname + "?" + (Grade == null ? "" : Grade) + (Nationality == null ? "" : Nationality) + (Date == null ? "" : Date);
+        if(Grade != null || Nationality != null || Date != null)
+            window.location.href = url;
+        else
+            window.location.href = '@Url.Content("~")' + window.location.pathname;
+
+    });
+
+    $("#Reset").click(function(){
+       $("#selectGrade option:nth("+0+")").prop("selected","true");
+       $("#selectNationality option:nth("+0+")").prop("selected","true");
+       $("#StudentBirthDateFrom").val("");
+       $("#StudentBirthDateTo").val("");
+    });
+
+    $(document).ready( function () {
+        // initialize datatable
+        $('#dt-basic-example').dataTable({
+            scrollX: true,
+            lengthChange : true,
+        });
+        var Grade = @ViewBag.Grade + "";
+        var Nationality = @ViewBag.Nationality + "";
+
+        if(Grade != 0){
+            $("#selectGrade option:nth("+Grade+")").prop("selected","true");
+        }
+        if(Nationality != 0){
+            $("#selectNationality option:nth("+Nationality+")").prop("selected","true");
+        }
+    });
+</script>
+}

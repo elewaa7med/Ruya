@@ -1,0 +1,138 @@
+﻿@model SmartAdmin.WebUI.Models.EmergencyInfo.EmergencyInfoUpdateModel
+@{
+    ViewData["Title"] = "Emergency Contact Information";
+    ViewData["PageName"] = "Emergency Contact";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-edit'></i> Emergency Contact Information";
+    ViewData["Category1"] = "Form Stuff";
+    ViewData["PageDescription"] = "";
+    ViewData["error"] = ViewBag.Errors;
+}
+<form enctype="multipart/form-data" class="was-validated" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        First Emergency contact Information
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="panel-tag">
+                            <h4>
+                                Should we be unreachable, I authorize you to contact and release my child to the following guardians.
+                                <br />
+                                Please don’t list the parents numbers.
+                            </h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group  ">
+                                    <label class="form-label " for="EmergencyContract1FullName">First Guardian Full name</label> <span class="text-danger">*</span>
+                                    <input type="text" id="EmergencyContract1FullName" class="form-control" asp-for="EmergencyContract1FullName">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="EmergencyContract1RelationShip">Relationship to student</label> <span class="text-danger">*</span>
+                                    <input type="text" id="EmergencyContract1RelationShip" class="form-control" asp-for="EmergencyContract1RelationShip">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="EmergencyContract1RelationPhoneNumber">Mobile number</label> <span class="text-danger">*</span>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">966</span>
+                                        </div>
+                                        <input type="number" id="EmergencyContract1RelationPhoneNumber" class="form-control" asp-for="EmergencyContract1RelationPhoneNumber">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Second Emergency contact Information
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group  ">
+                                    <label class="form-label " for="EmergencyContract1FullName">Second Guardian Full name</label> <span class="text-danger">*</span>
+                                    <input type="text" id="EmergencyContract1FullName" class="form-control" asp-for="EmergencyContract2FullName">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="EmergencyContract1RelationShip">Relationship to student</label> <span class="text-danger">*</span>
+                                    <input type="text" id="EmergencyContract1RelationShip" class="form-control" asp-for="EmergencyContract2RelationShip">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="EmergencyContract1RelationPhoneNumber">Mobile number</label> <span class="text-danger">*</span>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">966</span>
+                                        </div>
+                                        <input type="number" id="EmergencyContract2RelationPhoneNumber" class="form-control" asp-for="EmergencyContract2RelationPhoneNumber">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 mb-3 pl-4">
+            <button type="submit" asp-page-handler="Emergency_Info" asp-route-dir="previous" class="btn btn-primary waves-effect waves-themed mr-3 "> Previous </button>
+            @if (Model != null && Model.Submited == false)
+            {
+                <button type="submit" asp-page-handler="Emergency_Info" asp-route-dir="savelater" class="btn btn-secondary waves-effect waves-themed mr-3">Save and Revisit Later</button>
+            }
+            <button type="submit" asp-page-handler="Emergency_Info" asp-route-dir="submit" class="btn btn-success waves-effect waves-themed mr-3">Submit</button>
+            <button type="submit" asp-page-handler="Emergency_Info" asp-route-dir="next" id="next-up" class="btn btn-primary waves-effect waves-themed mr-3 "> Next </button>
+        </div>
+    </div>
+</form>
+
+@section ScriptsBlock {
+<script type="text/javascript">
+    var example_gridsize = $("#example-gridsize");
+    $("#gridrange").on("input change", function () {
+        //do something
+        example_gridsize.attr("placeholder", ".col-" + $(this).val());
+        example_gridsize.parent().removeClass().addClass("col-" + $(this).val())
+        console.log("col-" + $(this).val());
+    });
+
+</script>
+}

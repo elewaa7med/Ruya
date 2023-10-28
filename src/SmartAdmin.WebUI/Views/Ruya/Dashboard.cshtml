@@ -1,0 +1,73 @@
+﻿@model List<SmartAdmin.WebUI.Models.Dashboard.ApplicantDashboardViewModel>
+@{
+    ViewData["Title"] = "Dashboard";
+    ViewData["PageName"] = "Dashboard";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-edit'></i> Dashboard";
+    ViewData["Category1"] = "Form Stuff";
+    ViewData["PageDescription"] = "";
+}
+
+
+<div class="row">
+
+    <div class="col-sm-6 col-xl-3">
+        <a href="~/Ruya/Policies">
+            <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Add New Applicant
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-globe position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n4" style="font-size: 6rem;"></i>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        bool result = Enum.TryParse(@item.StudentCurrentLevel.ToString(), out Grade value);
+        <div class="col-sm-6 col-xl-6">
+            <a href="~/Ruya/Policies?id=@item.Id">
+                <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                    <div class="">
+                        <h2 class="display-4 d-block l-h-n  fw-500">
+                            @(item.StudentFirstNameEnglish)
+                        </h2>
+                        <h3> <span>Id/Iqama :</span> <span>@item.Student_IdORIqama</span></h3>
+                        <h3> <span>Birthday :</span> <span>@{
+                                    if (item.StudentBirthDate != null)
+                                        @item.StudentBirthDate.Value.ToShortDateString()
+                                    ;
+                                }</span></h3>
+                        <h3> <span>Current Level :</span> <span> @{
+                                    if (result == true)
+                                        @value
+                                    ;
+                                } </span></h3>
+                        <h3> <span>Profile :</span> <span>@(item.Submited ? "Compelete":"Incomplete")</span></h3>
+
+                    </div>
+                    <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+
+
+
+
+
+@section ScriptsBlock {
+<script type="text/javascript">
+    var example_gridsize = $("#example-gridsize");
+    $("#gridrange").on("input change", function () {
+        //do something
+        example_gridsize.attr("placeholder", ".col-" + $(this).val());
+        example_gridsize.parent().removeClass().addClass("col-" + $(this).val())
+        console.log("col-" + $(this).val());
+    });</script>
+}

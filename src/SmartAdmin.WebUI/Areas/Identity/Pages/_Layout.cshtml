@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<partial name="_CopyrightHeader" />
+<html lang="en">
+<head>
+    <partial name="_Head" />
+    @RenderSection("Header", required: false)
+</head>
+<body>
+    <partial name="_CookieConsentPartial" />
+    <!-- BEGIN Page Wrapper -->
+    <div class="page-wrapper">
+        <div class="page-inner bg-brand-gradient">
+            <div class="page-content-wrapper bg-transparent m-0">
+                <partial name="_PageHeader" />
+                <div class="flex-1" style="background: url('/img/svg/pattern-1.svg') no-repeat center bottom fixed; background-size: cover;">
+                    <div class="container py-4 my-lg-5 px-4 px-sm-0">
+                        <div class="row">
+                            @RenderSection("PageHeading", required: false)
+                            @RenderBody()
+                        </div>
+                    </div>
+                    <partial name="_PageFooter" />
+                    <partial name="_ColorProfileReference" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Page Wrapper -->
+    <partial name="_GoogleAnalytics" />
+    <partial name="_ScriptsBasePlugins" />
+    @RenderSection("Scripts", required: false)
+    @{
+        var Problem = ViewBag.Problem;
+    }
+    <button type="button" id="click-button" style="display:none" class="btn btn-default" data-toggle="modal" data-target="#default-example-modal-lg">Default Modal Large</button>
+
+    <div class="modal fade @Problem" id="default-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Error List</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">Error</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Issue with sending Forget Password Email please check with School Admin</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    if($(".true").length > 0){
+        $("#click-button").click();
+    }
+</script>
+</html>

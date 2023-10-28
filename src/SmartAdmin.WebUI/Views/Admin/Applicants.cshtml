@@ -1,0 +1,180 @@
+﻿@using System.ComponentModel.DataAnnotations
+@model IEnumerable<SmartAdmin.WebUI.Models.admin.applicant.ApplicantAdminViewModel>
+@{
+    ViewData["Title"] = "Dashboard";
+    ViewData["PageName"] = "Dashboard";
+    ViewData["Category1"] = "";
+    ViewData["Heading"] = "Dashboard";
+    ViewData["PageDescription"] = "";
+}
+@section HeadBlock {
+<link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+<link rel="stylesheet" media="screen, print" href="~/css/fa-solid.css">
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Dashboard Filter <span class="fw-300"><i>Table</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="col-xl-12 mb-3">
+                    <div class="form-group" style="text-align:right;padding:20px 0px 0px;">
+                        <a class="btn btn-default waves-effect waves-themed" asp-controller="Admin"
+                           asp-action="ExportToExcel"
+                           asp-route-From="@ViewBag.From"
+                           asp-route-To="@ViewBag.From"
+                           asp-route-Grade="@ViewBag.Grade"
+                           asp-route-Submited="true"
+                           asp-route-Nationality="@ViewBag.Nationality"> Export Excel</a>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                        <thead>
+                            <tr>
+                                <th>Student's Id OR Iqama</th>
+                                <th>student's name [English]</th>
+                                <th>student's name [Arabic]</th>
+                                <th>student's date of birth</th>
+                                <th>student's current Level</th>
+                                <th>student's upcoming school year</th>
+                                <th>student's first language</th>
+                                <th>student's current school </th>
+                                <th>Father E-Mail</th>
+                                <th>Mother E-Mail</th>
+                                <th>School system currently attended by the student </th>
+                                <th>Does the student have siblings at Ruya School</th>
+                                <th>Payment</th>
+                                <th>Applicant Acceptance Status</th>
+                                <th>Operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                @foreach (var item in Model)
+                                {
+                                    bool StudentCurrentLevelbool = Enum.TryParse(@item.StudentCurrentLevel.ToString(), out Grade StudentCurrentLevel);
+                                    bool UpcomingSchoolYearbool = Enum.TryParse(@item.StudentUpcomingSchoolLevel.ToString(), out UpcomingSchoolYear StudentUpcomingSchoolLevel);
+                                    bool SchoolSystemCurrentlyForStudentbool = Enum.TryParse(@item.SchoolSystemCurrentlyForStudent.ToString(), out SchoolSystem SchoolSystemCurrentlyForStudent);
+                                    bool HasSiblingsAtRuyabool = Enum.TryParse(@item.HasSiblingsAtRuya.ToString(), out boolean HasSiblingsAtRuya);
+                                    bool HasStatusAtRuyabool = Enum.TryParse(@item.Status.ToString(), out Status HasStatusAtRuya);
+                                    <tr>
+                                        <td>@item.Student_IdORIqama</td>
+                                        <td>@(item.StudentFirstNameEnglish + " " + @item.Parent.FatherFirstNameEnglish + " " + @item.Parent.FatherMiddleNameEnglish + " " + @item.Parent.FatherFamilyNameEnglish)</td>
+                                        <td>@(item.StudentFirstNameArabic  + " " + @item.Parent.FatherFirstNameArabic + " " + @item.Parent.FatherMiddleNameArabic + " " + @item.Parent.FatherFamilyNameArabic)</td>
+                                        <td>
+                                            @{
+                                                if (item.StudentBirthDate != null)
+                                                    @item.StudentBirthDate.Value.ToShortDateString()
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (StudentCurrentLevelbool == true)
+                                                    @StudentCurrentLevel
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (UpcomingSchoolYearbool == true)
+                                                    @StudentUpcomingSchoolLevel
+                                            }
+                                        </td>
+                                        <td>@item.StudentFirstLanguage </td>
+                                        <td>@item.StudentCurrentSchool</td>
+                                        <td>@item.Parent.FatherEmailAddress</td>
+                                        <td>@item.Parent.MotherEmailAddress</td>
+                                        <td>
+                                            @{
+                                                if (SchoolSystemCurrentlyForStudentbool == true)
+                                                {
+                                                    @SchoolSystemCurrentlyForStudent
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (HasSiblingsAtRuyabool == true)
+                                                    @HasSiblingsAtRuya
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (item.RuyaschoolAdministrationalFeesPath != null)
+                                                {
+                                                    <a href="./assets/Documents/@item.RuyaschoolAdministrationalFeesPath" target="_blank"> Show Administrational Fees</a>
+                                                }
+                                                else
+                                                {
+                                                    <span>NO</span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+
+                                            @{
+                                                if ((int)Status.Pending == @item.Status)
+                                                {
+                                                    <span class="badge badge-success  badge-pill" style="background-color:#000" ;>@(HasStatusAtRuya.GetAttribute<DisplayAttribute>().Name)</span>
+                                                }
+                                                if ((int)Status.Stage2 == @item.Status)
+                                                {
+                                                    <span class="badge badge-success  badge-pill" style="background-color:#ccc" ;>@(HasStatusAtRuya.GetAttribute<DisplayAttribute>().Name)</span>
+
+                                                }
+                                                if ((int)Status.Acceptedfinical == @item.Status)
+                                                {
+                                                    <span class="badge badge-success  badge-pill" style="background-color:#1EB001" ;>@(HasStatusAtRuya.GetAttribute<DisplayAttribute>().Name)</span>
+
+                                                }
+                                                if ((int)Status.AcceptedWaiting == @item.Status)
+                                                {
+                                                    <span class="badge badge-success  badge-pill" style="background-color:#CB2A7A" ;>@(HasStatusAtRuya.GetAttribute<DisplayAttribute>().Name)</span>
+
+                                                }
+                                                if ((int)Status.Acceptedconditions == @item.Status)
+                                                {
+                                                    <span class="badge badge-success  badge-pill" style="background-color:#FE9301" ;>@(HasStatusAtRuya.GetAttribute<DisplayAttribute>().Name)</span>
+
+                                                }
+                                                if ((int)Status.Acceptedrecommendation == @item.Status)
+                                                {
+                                                    <span class="badge badge-success  badge-pill" style="background-color:#92D7FF" ;>@(HasStatusAtRuya.GetAttribute<DisplayAttribute>().Name)</span>
+
+                                                }
+                                                if ((int)Status.Rejected == @item.Status)
+                                                {
+                                                    <span class="badge badge-success  badge-pill" style="background-color:#F03A26" ;>@(HasStatusAtRuya.GetAttribute<DisplayAttribute>().Name)</span>
+
+                                                }
+                                            }
+
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" id="js-demo-nesting" role="group" aria-label="Button group with nested dropdown">
+                                                <div class="btn-group" role="group">
+                                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Operation</button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" title="Stage" href="./View/Policies?Id=@item.Id">View</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

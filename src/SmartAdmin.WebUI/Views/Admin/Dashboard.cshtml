@@ -1,0 +1,241 @@
+﻿@model SmartAdmin.WebUI.Models.admin.Dashboard.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+    ViewData["PageName"] = "Dashboard";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-edit'></i> Dashboard";
+    ViewData["Category1"] = "Form Stuff";
+    ViewData["PageDescription"] = "";
+}
+
+
+<div class="row">
+
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicant : @Model.TotalApplicants
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?complete=true">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Completed profiles  : @Model.TotalCompletedProfiles
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?complete=false">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Incompleted profiles  : @Model.TotalIncompletedProfiles
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?status=3">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Accepted Applicants  : @Model.TotalAcceptedApplicants
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?status=4">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Rejected Applicants  : @Model.TotalRejectedApplicants
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?status=5">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants On waiting List : @Model.TotalAcceptedApplicantsOnWaiting
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-12 ">
+        <br />
+    </div>
+    <div class="col-xl-12 ">
+        <br />
+    </div>
+    <div class="col-xl-12 ">
+        <a href="./admin/Applicants?Grade=Preschool">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants in Preschool : @Model.TotalApplicantPreLevel
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?Grade=1">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants On PreKG : @Model.TotalApplicantPreKG
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?Grade=2">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants On KG 1: @Model.TotalApplicantKG1
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?Grade=3">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants On KG 2 : @Model.TotalApplicantKG2
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?Grade=4">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants On KG 3 : @Model.TotalApplicantKG3
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-12 ">
+        <br />
+    </div>
+    <div class="col-xl-12 ">
+        <br />
+    </div>
+    <div class="col-xl-12 ">
+        <a href="./admin/Applicants?Grade=elementary">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants in elementary : @Model.TotalApplicantElementaryLevel
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?Grade=5">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants On Grad 1 : @Model.TotalApplicantGrade1
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?Grade=6">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants On Grad 2 : @Model.TotalApplicantGrade2
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?Grade=7">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants On Grad 3 : @Model.TotalApplicantGrade3
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?Grade=8">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants On Grad 4 : @Model.TotalApplicantGrade4
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?Grade=9">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants On Grad 5 : @Model.TotalApplicantGrade5
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <a href="./admin/Applicants?Grade=10">
+            <div class=" p-3 bg-success-200  rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class=" d-block l-h-n m-0 fw-500">
+                        Total Applicants On Grad 6 : @Model.TotalApplicantGrade6
+                    </h3>
+                </div>
+                <i class="@(Settings.Theme.IconPrefix) fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </a>
+    </div>
+</div>

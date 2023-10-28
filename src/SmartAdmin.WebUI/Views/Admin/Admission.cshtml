@@ -1,0 +1,249 @@
+﻿@model IEnumerable<SmartAdmin.WebUI.Models.admin.Admission.AdmissionViewModel>
+@{
+    ViewData["Title"] = "Admission";
+    ViewData["PageName"] = "Admission";
+    ViewData["Category1"] = "";
+    ViewData["Heading"] = "Admission";
+    ViewData["PageDescription"] = "";
+}
+@section HeadBlock {
+<link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+<link rel="stylesheet" media="screen, print" href="~/css/fa-solid.css">
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Filter
+                </h2>
+            </div>
+            <div class="panel-container show">
+                <div class="row" style="padding:20px 20px;">
+                    <div class="col-xl-6 mb-3">
+                        <div class="form-group">
+                            <label class="form-label" for="single-default">
+                                Upcoming School Year
+                            </label>
+                            <select id="selectGrade" class="custom-select" asp-items="@Html.GetEnumSelectList<UpcomingSchoolYear>()">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 mb-3">
+                        <div class="form-group">
+                            <label class="form-label" for="single-default">
+                                Status
+                            </label>
+                            <select id="selectStatus" class="custom-select" asp-items="@Html.GetEnumSelectList<Status>()">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 mb-3">
+                        <div class="form-group">
+                            <label class="form-label" for="single-default">
+                                Date of birth From
+                            </label>
+                            <input class="form-control" id="StudentBirthDateFrom" type="date" value="@ViewBag.From">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 mb-3">
+                        <div class="form-group">
+                            <label class="form-label" for="single-default">
+                                Date of birth To
+                            </label>
+                            <input class="form-control" id="StudentBirthDateTo" type="date" value="@ViewBag.To">
+                        </div>
+                    </div>
+                    <div class="col-xl-12 mb-3">
+                        <div class="form-group" style="text-align:center">
+                            <button id="filter" class="btn btn-default waves-effect waves-themed" style="padding:10px 30px;">Filter</button>
+                            <button id="Reset" class="btn btn-default waves-effect waves-themed" style="padding:10px 30px;">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Admission <span class="fw-300"><i>Table</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                        <thead>
+                            <tr>
+                                <th>Student's Id OR Iqama</th>
+                                <th>student's name [Arabic]</th>
+                                <th>student's name [English]</th>
+                                <th>student's date of birth</th>
+                                <th>student's upcoming school year</th>
+                                <th>student's current school </th>
+                                <th>Father's E-Mail</th>
+                                <th>Father's Mobile Number</th>
+                                <th>Mother's E-Mail</th>
+                                <th>Mother's Mobile Number</th>
+                                <th>Nationality</th>
+                                <th>Birth Certificate</th>
+                                <th>Student’s immunization record</th>
+                                <th>Student’s most recent grade transcript</th>
+                                <th>Student’s Iqama (for non-saudis)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                @foreach (var item in Model)
+                                {
+                                    bool UpcomingSchoolYearbool = Enum.TryParse(@item.StudentUpcomingSchoolLevel.ToString(), out UpcomingSchoolYear StudentUpcomingSchoolLevel);
+                                    bool HasNationalitybool = Enum.TryParse(@item.Parent.FatherNationality.ToString(), out Nationality Nationality);
+
+                                    <tr>
+                                        <td>@item.Student_IdORIqama</td>
+                                        <td>@(item.StudentFirstNameArabic  + " " + @item.Parent.FatherFirstNameArabic + " " + @item.Parent.FatherMiddleNameArabic + " " + @item.Parent.FatherFamilyNameArabic)</td>
+                                        <td>@(item.StudentFirstNameEnglish + " " + @item.Parent.FatherFirstNameEnglish + " " + @item.Parent.FatherMiddleNameEnglish + " " + @item.Parent.FatherFamilyNameEnglish)</td>
+                                        <td>
+                                            @{
+                                                if (item.StudentBirthDate != null)
+                                                    @item.StudentBirthDate.Value.ToShortDateString()
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (UpcomingSchoolYearbool == true)
+                                                    @StudentUpcomingSchoolLevel
+                                            }
+                                        </td>
+                                        <td>@item.StudentCurrentSchool</td>
+                                        <td>@item.Parent.FatherEmailAddress</td>
+                                        <td>@item.Parent.FatherMobileNumber</td>
+                                        <td>@item.Parent.MotherEmailAddress</td>
+                                        <td>@item.Parent.MotherMobileNumber</td>
+                                        <td>
+                                            @{
+                                                if (HasNationalitybool == true)
+                                                    @Nationality
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (item.BirthCertificatePath != null)
+                                                {
+                                                    <a href="./assets/Documents/@item.BirthCertificatePath" target="_blank"> Show Birth Certificate</a>
+                                                }
+                                                else
+                                                {
+                                                    <span>NO</span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (item.StudentImmunizationRecordPath != null)
+                                                {
+                                                    <a href="./assets/Documents/@item.StudentImmunizationRecordPath" target="_blank"> Show Student Immunization</a>
+                                                }
+                                                else
+                                                {
+                                                    <span>NO</span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (item.StudentMostGradeTranscriptPath != null)
+                                                {
+                                                    <a href="./assets/Documents/@item.StudentMostGradeTranscriptPath" target="_blank"> Show Student Most Grade Trans</a>
+                                                }
+                                                else
+                                                {
+                                                    <span>NO</span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (item.StudentIqamaPath != null)
+                                                {
+                                                    <a href="./assets/Documents/@item.StudentIqamaPath" target="_blank"> Show Student Iqama</a>
+                                                }
+                                                else
+                                                {
+                                                    <span>NO</span>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section ScriptsBlock {
+<script>
+    $("#filter").click(function(){
+            var Grade = null,Status = null,Date = null;
+            if($("#selectGrade").val()){
+                Grade = "Grade=" + $("#selectGrade").val();
+            }
+            if($("#selectStatus").val()){
+                Status = "Status=" + $("#selectStatus").val();
+                if (Grade != null)
+                    Status = "&"+Status;
+            }
+
+            if($("#StudentBirthDateFrom").val() != null && $("#StudentBirthDateTo").val()){
+                Date = "From=" + $("#StudentBirthDateFrom").val() + "&To=" + $("#StudentBirthDateTo").val();
+                if (Grade != null || Status != null)
+                    Date = "&"+Date;
+            }
+
+            var url = '@Url.Content("~")' + window.location.pathname + "?" + (Grade == null ? "" : Grade) + (Status == null ? "" : Status) + (Date == null ? "" : Date);
+            if(Grade != null || Status != null || Date != null)
+                window.location.href = url;
+            else
+                window.location.href = '@Url.Content("~")' + window.location.pathname;
+
+        });
+
+        $("#Reset").click(function(){
+           $("#selectGrade option:nth("+0+")").prop("selected","true");
+           $("#selectStatus option:nth("+0+")").prop("selected","true");
+           $("#StudentBirthDateFrom").val("");
+           $("#StudentBirthDateTo").val("");
+        });
+        $(document).ready( function () {
+            // initialize datatable
+            $('#dt-basic-example').dataTable({
+               scrollX: true,
+               lengthChange : true,
+            });
+
+            var Grade = @ViewBag.Grade + "";
+            var Status = @ViewBag.Status + "";
+
+            if(Grade != 0){
+                $("#selectGrade option:nth("+ Grade +")").prop("selected","true");
+            }
+            if(Status != 0){
+                $("#selectStatus option:nth("+ Status +")").prop("selected","true");
+            }
+
+        });
+</script>
+}

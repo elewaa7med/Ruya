@@ -1,0 +1,157 @@
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@using SmartAdmin.WebUI.Entities
+@{
+    @inject UserManager<User> UserManager;
+    @inject IHttpContextAccessor HttpContextAccessor;
+    var result = @UserManager.GetUserAsync(HttpContextAccessor.HttpContext.User).Result;
+    if (result != null)
+    {
+        ViewBag.UserName = result.FirstName + " " + result.LastName;
+        ViewBag.Email = result.Email;
+    }
+}
+<!DOCTYPE html>
+<partial name="_CopyrightHeader" />
+<html lang="en">
+<head>
+    <partial name="_Head" />
+    @RenderSection("HeadBlock", required: false)
+</head>
+<body class="mod-bg-1 mod-nav-link mod-nav-link @ViewBag.PreemptiveClass">
+    <partial name="_ScriptsLoadingSaving" />
+    <div class="page-wrapper">
+        <div class="page-inner">
+            <partial name="_LeftPanel" />
+            <div class="page-content-wrapper">
+                <partial name="_PageHeader" />
+                <main id="js-page-content" role="main" class="page-content">
+                    @if (ViewBag.PreemptiveClass?.Length > 0)
+                    {
+                    }
+                    else
+                    {
+                        <partial name="_PageBreadcrumb" />
+                        <div class="subheader"><partial name="_PageHeading" />@RenderSection("Subheaderblock", required: false)</div>
+                    }
+                    @RenderBody()
+                </main>
+                <partial name="_PageContentOverlay" />
+                <partial name="_PageFooter" />
+                <partial name="_ShortcutModal" />
+                <partial name="_ColorProfileReference" />
+            </div>
+        </div>
+    </div>
+    <partial name="_ShortcutMenu" />
+    <partial name="_ShortcutMessenger" />
+    <partial name="_PageSettings" />
+    <partial name="_GoogleAnalytics" />
+    <partial name="_ScriptsBasePlugins" />
+
+
+    @{
+        var Errors = ViewBag.Errors;
+        string FatherEmail = ViewBag.FatherEmail ?? "false";
+        string MotherEmail = ViewBag.MotherEmail  ?? "false";
+    }
+    <button type="button" id="click-button" style="display:none" class="btn btn-default" data-toggle="modal" data-target="#default-example-modal-lg">Default Modal Large</button>
+
+    <div class="modal fade" id="default-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Error List</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="@(Settings.Theme.IconPrefix) fa-times"></i></span>
+                    </button>
+                </div>
+
+                @{
+                    if (Errors != null)
+                    {
+                        <div class="modal-body error-list-body">
+                            @foreach (var item in Errors)
+                            {
+                                <h2>@item.page</h2>
+                                foreach (string error in item.Error)
+                                {
+                                    <p>@error</p>
+                                }
+                            }
+                        </div>
+                    }
+
+                }
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="checker" id="@ViewBag.type" style="display:none"></span>
+    <button type="button" id="click-button1" style="display:none" class="btn btn-default" data-toggle="modal" data-target="#default-example">Default Modal Large</button>
+    <div class="modal fade @MotherEmail @FatherEmail" id="default-example" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Error List</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="@(Settings.Theme.IconPrefix) fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @{
+                        if (FatherEmail == "true" && MotherEmail == "true")
+                        {
+                            <h3>Mail Sent To Father and Mother Email</h3>
+                        }
+                        else if (FatherEmail == "true")
+                        {
+                            <h3>Mail Sent To Father Email Only, Mother Email Might be not added yet</h3>
+                        }
+                        else if (MotherEmail == "true")
+                        {
+                            <h3>Mail Sent To Mother Email Only, Father Email Might be not added yet</h3>
+                        }
+                        else
+                        {
+                            <h3>Mail Not Sent To Father nor mother, they didn't add both Emails yet</h3>
+                        }
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        if($(".error-list-body").length > 0){
+            $("#click-button").click();
+        }
+        if($(".true").length > 0){
+            $("#click-button1").click();
+        }
+        $("#js-nav-menu .navigation-redirect a").on("click",(e)=>{
+            if($("#next-up").length != 0){
+                var value = $("#next-up").attr("formaction") +"&locationTo="+$(e.currentTarget).attr("redirect-to");
+                $("#next-up").attr("formaction",value);
+                $("#next-up").click();
+            }else{
+                var value = $("#previous-up").attr("formaction") +"&locationTo="+$(e.currentTarget).attr("redirect-to");
+                $("#previous-up").attr("formaction",value);
+                $("#previous-up").click();
+            }
+        });
+
+        if($("span.checker").attr("id") != null){
+            $("input").attr("disabled","true");
+            $("select").attr("disabled","true");
+        }
+    </script>
+    <script src="~/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script src="~/js/datagrid/datatables/datatables.export.js"></script>
+    @RenderSection("ScriptsBlock", required: false)
+</body>
+</html>

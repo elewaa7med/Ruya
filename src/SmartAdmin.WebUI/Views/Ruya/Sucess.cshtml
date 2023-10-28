@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Application Submitted successfully";
+    ViewData["PageName"] = "Application Submitted successfully";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-edit'></i> Application Submitted successfully";
+    ViewData["Category1"] = "Application Submitted successfully";
+    ViewData["PageDescription"] = "";
+    ViewData["error"] = ViewBag.Errors;
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Application Submitted successfully
+
+                </h2>
+
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+
+                    <div class="row">
+                        <div class="col-xl-12 mb-3">
+                            <h1 style="text-align: center;font-size: 36px;">Application Submitted successfully</h1>
+                            <p style="    font-size: 21px;text-align: center;margin-top: 70px;">
+                                Thank you for completing the registration.
+                                <br />
+                                The admission department will contact you via email for admission test appointment
+                            </p>
+                            <a style="display:block; font-size: 21px; text-align: center; margin-top: 70px;"href="./Ruya/Dashboard">Return To Dashbaord</a>
+                        </div>
+                        <div class="col-xl-12 mb-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section ScriptsBlock {
+<script type="text/javascript">
+    var example_gridsize = $("#example-gridsize");
+    $("#gridrange").on("input change", function () {
+        //do something
+        example_gridsize.attr("placeholder", ".col-" + $(this).val());
+        example_gridsize.parent().removeClass().addClass("col-" + $(this).val())
+        console.log("col-" + $(this).val());
+    });
+</script>
+}

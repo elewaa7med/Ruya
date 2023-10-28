@@ -1,0 +1,127 @@
+﻿@using System.ComponentModel.DataAnnotations
+@model IEnumerable<SmartAdmin.WebUI.Models.admin.applicant.ApplicantAdminViewModel>
+@{
+    ViewData["Title"] = "Archived Applicants";
+    ViewData["PageName"] = "Archived";
+    ViewData["Category1"] = "";
+    ViewData["Heading"] = "Archived Applicants";
+    ViewData["PageDescription"] = "";
+}
+
+@section HeadBlock {
+<link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+<link rel="stylesheet" media="screen, print" href="~/css/fa-solid.css">
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Completed <span class="fw-300"><i>Table</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="col-xl-12 mb-3">
+                    <div class="form-group" style="text-align:right;padding:20px 0px 0px;">
+                        <a class="btn btn-default waves-effect waves-themed" asp-controller="Admin"
+                           asp-action="ExportToExcel"
+                           asp-route-From="@ViewBag.From"
+                           asp-route-To="@ViewBag.From"
+                           asp-route-Grade="@ViewBag.Grade"
+                           asp-route-Submited="true"
+                           asp-route-Nationality="@ViewBag.Nationality"> Export Excel</a>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                        <thead>
+                            <tr>
+                                <th>Student's Id OR Iqama</th>
+                                <th>student's name [English]</th>
+                                <th>student's name [Arabic]</th>
+                                <th>student's date of birth</th>
+                                <th>student's current Level</th>
+                                <th>student's upcoming school year</th>
+                                <th>student's first language</th>
+                                <th>student's current school </th>
+                                <th>Father E-Mail</th>
+                                <th>Mother E-Mail</th>
+                                <th>Operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                @foreach (var item in Model)
+                                {
+                                    bool StudentCurrentLevelbool = Enum.TryParse(@item.StudentCurrentLevel.ToString(), out Grade StudentCurrentLevel);
+                                    bool UpcomingSchoolYearbool = Enum.TryParse(@item.StudentUpcomingSchoolLevel.ToString(), out UpcomingSchoolYear StudentUpcomingSchoolLevel);
+                                    bool SchoolSystemCurrentlyForStudentbool = Enum.TryParse(@item.SchoolSystemCurrentlyForStudent.ToString(), out SchoolSystem SchoolSystemCurrentlyForStudent);
+                                    bool HasSiblingsAtRuyabool = Enum.TryParse(@item.HasSiblingsAtRuya.ToString(), out boolean HasSiblingsAtRuya);
+                                    bool HasStatusAtRuyabool = Enum.TryParse(@item.Status.ToString(), out Status HasStatusAtRuya);
+                                    <tr>
+                                        <td>@item.Student_IdORIqama</td>
+                                        <td>@(item.StudentFirstNameEnglish + " " + @item.Parent.FatherFirstNameEnglish + " " + @item.Parent.FatherMiddleNameEnglish + " " + @item.Parent.FatherFamilyNameEnglish)</td>
+                                        <td>@(item.StudentFirstNameArabic  + " " + @item.Parent.FatherFirstNameArabic + " " + @item.Parent.FatherMiddleNameArabic + " " + @item.Parent.FatherFamilyNameArabic)</td>
+                                        <td>
+                                            @{
+                                                if (item.StudentBirthDate != null)
+                                                    @item.StudentBirthDate.Value.ToShortDateString()
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (StudentCurrentLevelbool == true)
+                                                    @StudentCurrentLevel
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (UpcomingSchoolYearbool == true)
+                                                    @StudentUpcomingSchoolLevel
+                                            }
+                                        </td>
+                                        <td>@item.StudentFirstLanguage </td>
+                                        <td>@item.StudentCurrentSchool</td>
+                                        <td>@item.Parent.FatherEmailAddress</td>
+                                        <td>@item.Parent.MotherEmailAddress</td>
+                                        <td>
+                                            <div class="btn-group" id="js-demo-nesting" role="group" aria-label="Button group with nested dropdown">
+                                                <div class="btn-group" role="group">
+                                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Operation</button>
+                                                    <div class="dropdown-menu" >
+                                                        <a class="dropdown-item" title="Unarchive" href="./Admin/Unarchive?Id=@item.Id">Unarchive</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section ScriptsBlock {
+<script>
+  
+
+    $(document).ready( function () {
+        // initialize datatable
+        $('#dt-basic-example').dataTable({
+            scrollX: false,
+            scrollY: false,
+            lengthChange : true,
+        });
+        var Grade = @ViewBag.Grade + "";
+      
+    });
+</script>
+}

@@ -1,0 +1,145 @@
+@model SmartAdmin.WebUI.Models.Student_Info.StudentInfoUpdateModel;
+@{
+    ViewData["Title"] = "Student Details";
+    ViewData["PageName"] = "Student Details";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-edit'></i> Student's Details";
+    ViewData["Category1"] = "Form Stuff";
+    ViewData["PageDescription"] = "";
+    ViewData["Errors"] = ViewBag.Errors;
+}
+<form enctype="multipart/form-data" class="was-validated" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Student Details
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group  ">
+                                    <label class="form-label " for="Student_IdORIqama">student's Id Number or Iqama number</label> <span class="text-danger">*</span>
+                                    <input type="number" id="Student_IdORIqama" class="form-control" asp-for="Student_IdORIqama" maxlength="10">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        student's first name in English as appeared on passport
+                                    </label><span class="text-danger"> *</span>
+                                    <input type="text" id="StudentFirstNameEnglish" class="form-control" asp-for="StudentFirstNameEnglish">
+                                </div>
+                            </div>
+
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentFirstNameArabic">student's first name in Arabic as appeared on passport</label> <span class="text-danger">*</span>
+                                    <input type="text" id="StudentFirstNameArabic" class="form-control" asp-for="StudentFirstNameArabic">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="StudentBirthDate">student's date of birth (Gregorian)</label><span class="text-danger">*</span>
+                                    <input class="form-control" id="StudentBirthDate" type="date" asp-for="StudentBirthDate">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        student's current Level
+                                    </label>
+                                    <select class="custom-select" id="single-default" asp-for="StudentCurrentLevel" asp-items="Html.GetEnumSelectList<Grade>()">
+                                        <option selected disabled value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        upcoming school year
+                                    </label>
+                                    <select class="custom-select" id="single-default" asp-for="StudentUpcomingSchoolLevel" asp-items="Html.GetEnumSelectList<UpcomingSchoolYear>()">
+                                        <option selected disabled value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group  ">
+                                    <label class="form-label " for="PassportNumber">student's first language </label> <span class="text-danger"> *</span>
+                                    <input type="text" id="PassportNumber" class="form-control" asp-for="StudentFirstLanguage">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group  ">
+                                    <label class="form-label " for="PassportNumber">student's current school  </label> <span class="text-danger"> *</span>
+                                    <input type="text" id="PassportNumber" class="form-control" asp-for="StudentCurrentSchool">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        School system currently attended by the student
+                                    </label> <span class="text-danger">*</span>
+                                    <select class="custom-select" id="single-default" asp-for="SchoolSystemCurrentlyForStudent" asp-items="Html.GetEnumSelectList<SchoolSystem>()">
+                                        <option value="" selected disabled>Select</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        does the student have siblings at Ruya School
+                                    </label> <span class="text-danger">*</span>
+                                    <select class="custom-select" id="single-default" asp-for="HasSiblingsAtRuya" asp-items="Html.GetEnumSelectList<boolean>()">
+                                        <option value="" disabled selected>Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 mb-3 pl-4">
+            <button type="submit" asp-page-handler="Student_Info" asp-route-dir="previous" class="btn btn-primary waves-effect waves-themed mr-3 "> Previous </button>
+             @if (Model != null && Model.Submited == false)
+            {
+                <button type="submit" asp-page-handler="Student_Info" asp-route-dir="savelater" class="btn btn-secondary waves-effect waves-themed mr-3">Save and Revisit Later</button>
+            }
+            <button type="submit" asp-page-handler="Student_Info" asp-route-dir="submit" class="btn btn-success waves-effect waves-themed mr-3">Submit</button>
+            <button type="submit" asp-page-handler="Student_Info" asp-route-dir="next" id="next-up" class="btn btn-primary waves-effect waves-themed mr-3 "> Next </button>
+        </div>
+    </div>
+</form>
+
+
+@section ScriptsBlock {
+<script type="text/javascript">
+    var example_gridsize = $("#example-gridsize");
+    $("#gridrange").on("input change", function () {
+        //do something
+        example_gridsize.attr("placeholder", ".col-" + $(this).val());
+        example_gridsize.parent().removeClass().addClass("col-" + $(this).val())
+        console.log("col-" + $(this).val());
+    });
+</script>
+}

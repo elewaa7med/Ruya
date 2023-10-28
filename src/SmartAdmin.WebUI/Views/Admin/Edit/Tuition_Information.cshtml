@@ -1,0 +1,96 @@
+﻿@model SmartAdmin.WebUI.Models.Tuition_Info.TuitionInfoUpdateModel
+@{
+    ViewData["Title"] = "Tuition Information";
+    ViewData["PageName"] = "Tuition Information";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-edit'></i> Tuition Information";
+    ViewData["Category1"] = "Form Stuff";
+    ViewData["PageDescription"] = "";
+    ViewData["error"] = ViewBag.Errors;
+}
+
+
+<form enctype="multipart/form-data" class="was-validated" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Tuition Methods
+
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="panel-tag">
+                            In order to assist the school's accounting department, please choose one of the options below to indicate how the
+                            school fees will be paid.
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        Tuition Payment Methods
+                                    </label>
+                                    <select class="select2 form-control w-100" id="single-default" asp-for="TuitionPaymentMethods" asp-items="Html.GetEnumSelectList<TuitionPaymentMethods>()">
+                                        <option value="" disabled selected>Select </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="single-default">
+                                        Preferred payment plan
+                                    </label>  <span class="text-danger">*</span>
+                                    <select class="select2 form-control w-100" id="single-default-plan-id" asp-for="TuitionPlanId">
+                                        <option value="" disabled selected>Select </option>
+                                        @foreach (var item in ViewBag.TuitionPlan)
+                                        {
+                                            <option value="@item.Id" name="@item.TuitionPaymentPlanImage">@item.TuitionPaymentPlan  </option>
+
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 plan-image">
+                                <img style="width:100%" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xl-12 mb-3 pl-4">
+            <button type="submit" asp-page-handler="Tuition_Information" asp-route-dir="previous" class="btn btn-primary waves-effect waves-themed mr-3">Previous</button>
+            <button type="submit" asp-page-handler="Tuition_Information" asp-route-dir="submit" class="btn btn-success waves-effect waves-themed mr-3">Submit</button>
+            <button type="submit" asp-page-handler="Tuition_Information" asp-route-dir="next" id="next-up" class="btn btn-primary waves-effect waves-themed mr-3 "> Next </button>
+        </div>
+    </div>
+</form>
+
+@section ScriptsBlock {
+<script type="text/javascript">
+    var example_gridsize = $("#example-gridsize");
+    $("#gridrange").on("input change", function () {
+        //do something
+        example_gridsize.attr("placeholder", ".col-" + $(this).val());
+        example_gridsize.parent().removeClass().addClass("col-" + $(this).val())
+        console.log("col-" + $(this).val());
+    });
+    if($("select#single-default-plan-id option:selected").attr("name") != undefined)
+        $(".plan-image img").attr("src","/assets/RuyaDocuments/TuitionPlan/"+$("select#single-default-plan-id option:selected").attr("name"))
+    $('select#single-default-plan-id').on('change', function() {
+        $(".plan-image img").attr("src","/assets/RuyaDocuments/TuitionPlan/"+$("select#single-default-plan-id option:selected").attr("name") )
+    });
+</script>
+}

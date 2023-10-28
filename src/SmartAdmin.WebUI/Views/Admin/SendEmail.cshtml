@@ -1,0 +1,81 @@
+﻿@model SmartAdmin.WebUI.Models.admin.SendEmailModel
+@{
+    ViewData["Title"] = "Send Email";
+    ViewData["PageName"] = "Send Email";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-edit'></i> Send Email";
+    ViewData["Category1"] = "Form Stuff";
+    ViewData["PageDescription"] = "";
+}
+
+<form enctype="multipart/form-data" class="was-validated" method="post">
+    <input type="hidden" asp-for="Id" value="@ViewBag.Id" />
+    <input type="hidden" asp-for="From" value="@ViewBag.From" />
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Send Email
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+                            <div class="col-xl-12 mb-3">
+                                <div class="form-group  ">
+                                    <label class="form-label " for="EmergencyContract1FullName">Email Title</label> <span class="text-danger">*</span>
+                                    <input type="text" id="Title" class="form-control" asp-for="Title">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="example-textarea">Email Body</label>
+                                    <textarea class="form-control" id="body" rows="5" asp-for="Body"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 mb-3">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" checked class="custom-control-input" id="IncludeFather" asp-for="IncludeFather">
+                                    <label class="custom-control-label" for="IncludeFather">Include Father</label>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 mb-3">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="IncludeMother" asp-for="IncludeMother">
+                                    <label class="custom-control-label" for="IncludeMother">Include Mother</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 mb-3 pl-4">
+            <button type="submit" class="btn btn-success waves-effect waves-themed mr-3 "> Send Email </button>
+        </div>
+    </div>
+</form>
+
+@section ScriptsBlock {
+<script type="text/javascript">
+    var example_gridsize = $("#example-gridsize");
+    $("#gridrange").on("input change", function () {
+        //do something
+        example_gridsize.attr("placeholder", ".col-" + $(this).val());
+        example_gridsize.parent().removeClass().addClass("col-" + $(this).val())
+        console.log("col-" + $(this).val());
+    });
+</script>
+}
+
+
+

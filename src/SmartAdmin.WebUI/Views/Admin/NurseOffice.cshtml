@@ -1,0 +1,111 @@
+﻿@model IEnumerable<SmartAdmin.WebUI.Models.admin.NurseOffice.NurseOfficeViewModel>
+@{
+    ViewData["Title"] = "Nurse Office";
+    ViewData["PageName"] = "Nurse Office";
+    ViewData["Category1"] = "";
+    ViewData["Heading"] = "Nurse Office";
+    ViewData["PageDescription"] = "";
+}
+@section HeadBlock {
+<link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+<link rel="stylesheet" media="screen, print" href="~/css/fa-solid.css">
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Nurse Office <span class="fw-300"><i>Table</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                        <thead>
+                            <tr>
+                                <th>Student's Id OR Iqama</th>
+                                <th>student's name</th>
+                                <th>student's date of birth</th>
+                                <th>Father's E-Mail</th>
+                                <th>Father's Mobile Number</th>
+                                <th>Mother's E-Mail</th>
+                                <th>Mother's Mobile Number</th>
+                                <th>Medical clearance certificate</th>
+                                <th>Birth Certificate</th>
+                                <th>Student immunization Record</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Student_IdORIqama</td>
+                                        <td>@(item.StudentFirstNameEnglish + " " + @item.Parent.FatherFirstNameEnglish + " " + @item.Parent.FatherMiddleNameEnglish + " " + @item.Parent.FatherFamilyNameEnglish)</td>
+                                        <td>
+                                            @{
+                                                if (item.StudentBirthDate != null)
+                                                    @item.StudentBirthDate.Value.ToShortDateString()
+                                            }
+                                        </td>
+                                        <td>@item.Parent.FatherEmailAddress</td>
+                                        <td>@item.Parent.FatherMobileNumber</td>
+                                        <td>@item.Parent.MotherEmailAddress</td>
+                                        <td>@item.Parent.MotherMobileNumber</td>
+                                        <td>
+                                            @if (item.StudentmedicalClearanceCertificatePath != null)
+                                            {
+                                                <a href="./assets/Documents/@item.StudentmedicalClearanceCertificatePath" target="_blank"> Show Medical Clearance</a>
+                                            }
+                                            else
+                                            {
+                                                <span>No</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.BirthCertificatePath != null)
+                                            {
+                                                <a href="./assets/Documents/@item.BirthCertificatePath" target="_blank"> Show Birth Certificate</a>
+                                            }
+                                            else
+                                            {
+                                                <span>NO</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.StudentImmunizationRecordPath != null)
+                                            {
+                                                <a href="./assets/Documents/@item.StudentImmunizationRecordPath" target="_blank"> Show Student Immunization</a>
+                                            }
+                                            else
+                                            {
+                                                <span>NO</span>
+                                            }
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section ScriptsBlock {
+<script>
+    $(document).ready( function () {
+        // initialize datatable
+        $('#dt-basic-example').dataTable({
+           scrollX: true,
+           lengthChange : true,
+        });
+    });
+</script>
+}

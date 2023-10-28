@@ -1,0 +1,271 @@
+@using Microsoft.AspNetCore.Identity
+@using SmartAdmin.WebUI.Entities
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
+    var PageName = ViewBag.PageName;
+
+    var user = UserManager.GetUserAsync(User).Result;
+    var isAdmin = UserManager.IsInRoleAsync(user, "Admin").Result;
+}
+@if (!isAdmin)
+{
+    <ul id="js-nav-menu" class="nav-menu">
+        <li class="@(PageName.Equals("Dashboard") ? "active open" : "")">
+            <a href="#" title="Dashboard" data-filter-tags="dashboard">
+                <i class="fal fa-window"></i>
+                <span class="nav-link-text">Dashboard</span>
+            </a>
+            <ul>
+                <li class="active">
+                    <a asp-area="" asp-controller="Ruya" asp-action="Dashboard" title="Dashboard" data-filter-tags="Dashboard">
+                        <span class="nav-link-text">Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    List<string> list = new List<string>(){
+    "Policies Agreement","Student Details","Father Details","Mother Details","Academic Information","Tuition Information","Emergency Contact","Official Documents"};
+    if (list.Contains(PageName))
+    {
+        <ul id="js-nav-menu" class="nav-menu">
+            <li class="@(list.Contains(PageName) ? "active open" : "")">
+                <a title="Applicant" data-filter-tags="Applicant">
+                    <i class="fal fa-window"></i>
+                    <span class="nav-link-text">Applicant</span>
+                </a>
+                <ul class="navigation-redirect">
+                    <li class="@("Policies Agreement".Equals(PageName) ? "active" : "")">
+                        <a redirect-to="Policies" title="Policies" data-filter-tags="Policies">
+                            <span class="nav-link-text">Policies</span>
+                        </a>
+                    </li>
+                    <li class="@("Student Details".Equals(PageName) ? "active" : "")">
+                        <a redirect-to="Student_Info" title="Student Information" data-filter-tags="Student Information">
+                            <span class="nav-link-text">Student Information</span>
+                        </a>
+                    </li>
+
+                    <li class="@("Father Details".Equals(PageName) ? "active" : "")">
+                        <a redirect-to="Father_Info" title="Father Information" data-filter-tags="Father Information">
+                            <span class="nav-link-text">Father Information</span>
+                        </a>
+                    </li>
+
+                    <li class="@("Mother Details".Equals(PageName) ? "active" : "")">
+                        <a redirect-to="Mother_Info" title="Mother Information" data-filter-tags="Mother Information">
+                            <span class="nav-link-text">Mother Information</span>
+                        </a>
+                    </li>
+
+                    <li class="@("Academic Information".Equals(PageName) ? "active" : "")">
+                        <a redirect-to="Academic_Info" title="Academic Information" data-filter-tags="Academic Information">
+                            <span class="nav-link-text">Academic Information</span>
+                        </a>
+                    </li>
+
+                    <li class="@("Tuition Information".Equals(PageName) ? "active" : "")">
+                        <a redirect-to="Tuition_Information" title="Tuition Information" data-filter-tags="Tuition Information">
+                            <span class="nav-link-text">Tuition Information</span>
+                        </a>
+                    </li>
+
+                    <li class="@("Emergency Contact".Equals(PageName) ? "active" : "")">
+                        <a redirect-to="Emergency_Info" title="Emergency Information" data-filter-tags="Emergency Information">
+                            <span class="nav-link-text">Emergency Information</span>
+                        </a>
+                    </li>
+                    <li class="@("Official Documents".Equals(PageName) ? "active" : "")">
+                        <a redirect-to="Documents" title="Documents" data-filter-tags="Documents">
+                            <span class="nav-link-text">Documents</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    }
+}
+else
+{
+    List<string> list = new List<string>(){
+    "Completed Applicants","Incompleted Applicants"};
+    List<string> list2 = new List<string>(){
+    "Management"};
+    List<string> list3 = new List<string>(){
+    "Dashboard"};
+    List<string> list4 = new List<string>(){
+    "Account"};
+    List<string> list5 = new List<string>(){
+    "Admission"};
+    List<string> list6 = new List<string>(){
+    "Nurse Office"};
+    List<string> list8 = new List<string>(){
+    "Archived"};
+    <ul id="js-nav-menu" class="nav-menu">
+        <li class="@(list3.Contains(PageName) ? "active open" : "")">
+            <a title="Dashboard" data-filter-tags="Dashboard">
+                <i class="fal fa-window"></i>
+                <span class="nav-link-text">Dashboard</span>
+            </a>
+            <ul class="navigation-redirect">
+                <li class="@("Dashboard".Equals(PageName) ? "active" : "")">
+                    <a asp-controller="Admin" asp-action="Dashboard" title="Dashboard" data-filter-tags="Dashboard">
+                        <span class="nav-link-text">Dashboard</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="@(list.Contains(PageName) ? "active open" : "")">
+            <a title="Applicant" data-filter-tags="Applicant">
+                <i class="fal fa-window"></i>
+                <span class="nav-link-text">Applicants</span>
+            </a>
+            <ul class="navigation-redirect">
+                <li class="@("Completed Applicants".Equals(PageName) ? "active" : "")">
+                    <a asp-controller="Admin" asp-action="Completed_Applicants" title="Compeleted & Submited" data-filter-tags="Compeleted & Submited">
+                        <span class="nav-link-text">Completed Applicants</span>
+                    </a>
+                </li>
+                <li class="@("Incompleted Applicants".Equals(PageName) ? "active" : "")">
+                    <a asp-controller="Admin" asp-action="Incompleted_Applicants" title="Incompleted" data-filter-tags="Incompleted">
+                        <span class="nav-link-text">Incompleted Applicants</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="@(list4.Contains(PageName) ? "active open" : "")">
+            <a title="Account" data-filter-tags="Account">
+                <i class="fal fa-window"></i>
+                <span class="nav-link-text">Account</span>
+            </a>
+            <ul class="navigation-redirect">
+                <li class="@("Account".Equals(PageName) ? "active" : "")">
+                    <a asp-controller="Admin" asp-action="Account" title="Account" data-filter-tags="Account">
+                        <span class="nav-link-text">Account</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="@(list5.Contains(PageName) ? "active open" : "")">
+            <a title="Admission" data-filter-tags="Admission">
+                <i class="fal fa-window"></i>
+                <span class="nav-link-text">Admission</span>
+            </a>
+            <ul class="navigation-redirect">
+                <li class="@("Admission".Equals(PageName) ? "active" : "")">
+                    <a asp-controller="Admin" asp-action="Admission" title="Admission" data-filter-tags="Admission">
+                        <span class="nav-link-text">Admission</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="@(list2.Contains(PageName) ? "active open" : "")">
+            <a title="Management" data-filter-tags="Management">
+                <i class="fal fa-window"></i>
+                <span class="nav-link-text">Management</span>
+            </a>
+            <ul class="navigation-redirect">
+                <li class="@("Management".Equals(PageName) ? "active" : "")">
+                    <a asp-controller="Admin" asp-action="Management" title="Management" data-filter-tags="Management">
+                        <span class="nav-link-text">Management</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="@(list6.Contains(PageName) ? "active open" : "")">
+            <a title="Nurse Office" data-filter-tags="Nurse Office">
+                <i class="fal fa-window"></i>
+                <span class="nav-link-text">Nurse Office</span>
+            </a>
+            <ul class="navigation-redirect">
+                <li class="@("Nurse Office".Equals(PageName) ? "active" : "")">
+                    <a asp-controller="Admin" asp-action="NurseOffice" title="Nurse Office" data-filter-tags="Nurse Office">
+                        <span class="nav-link-text">Nurse Office</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="@(list8.Contains(PageName) ? "active open" : "")">
+            <a title="Archived" data-filter-tags="Archived">
+                <i class="fal fa-window"></i>
+                <span class="nav-link-text">Archived</span>
+            </a>
+            <ul class="navigation-redirect">
+                <li class="@("Archived".Equals(PageName) ? "active" : "")">
+                    <a asp-controller="Admin" asp-action="Archived" title="Archived" data-filter-tags="Archived">
+                        <span class="nav-link-text">Archived</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    List<string> list7 = new List<string>(){
+    "Policies Agreement","Student Details","Father Details","Mother Details","Academic Information","Tuition Information","Emergency Contact","Official Documents"};
+    if (list7.Contains(PageName))
+    {
+        <ul id="js-nav-menu" class="nav-menu">
+            <li class="@(list7.Contains(PageName) ? "active open" : "")">
+                <a title="Applicant" data-filter-tags="Applicant">
+                    <i class="fal fa-window"></i>
+                    <span class="nav-link-text">Applicant</span>
+                </a>
+                <ul class="navigation-redirect">
+                    <li class="@("Policies Agreement".Equals(PageName) ? "active" : "")">
+                        <a @(ViewBag.type == null ? "redirect-to=PoliciesE" : "href =/view/Policies?id="+@ViewBag.Id) title="Policies" data-filter-tags="Policies">
+                            <span class="nav-link-text">Policies</span>
+                        </a>
+                    </li>
+                    <li class="@("Student Details".Equals(PageName) ? "active" : "")">
+                        <a @(ViewBag.type == null ? "redirect-to=Student_InfoE" : "href =/view/Student_Info?id="+@ViewBag.Id) title="Student Information" data-filter-tags="Student Information">
+                            <span class="nav-link-text">Student Information</span>
+                        </a>
+                    </li>
+
+                    <li class="@("Father Details".Equals(PageName) ? "active" : "")">
+                        <a @(ViewBag.type == null ? "redirect-to=Father_InfoE" : "href =/view/Father_Info?id="+@ViewBag.Id) title="Father Information" data-filter-tags="Father Information">
+                            <span class="nav-link-text">Father Information</span>
+                        </a>
+                    </li>
+
+                    <li class="@("Mother Details".Equals(PageName) ? "active" : "")">
+                        <a @(ViewBag.type == null  ? "redirect-to=Mother_InfoE" : "href =/view/Mother_Info?id="+@ViewBag.Id) title="Mother Information" data-filter-tags="Mother Information">
+                            <span class="nav-link-text">Mother Information</span>
+                        </a>
+                    </li>
+
+                    <li class="@("Academic Information".Equals(PageName) ? "active" : "")">
+                        <a @(ViewBag.type == null ? "redirect-to=Academic_InfoE" : "href =/view/Academic_Info?id="+@ViewBag.Id) title="Academic Information" data-filter-tags="Academic Information">
+                            <span class="nav-link-text">Academic Information</span>
+                        </a>
+                    </li>
+
+                    <li class="@("Tuition Information".Equals(PageName) ? "active" : "")">
+                        <a @(ViewBag.type == null ? "redirect-to=Tuition_InformationE" : "href =/view/Tuition_Information?id="+@ViewBag.Id) title="Tuition Information" data-filter-tags="Tuition Information">
+                            <span class="nav-link-text">Tuition Information</span>
+                        </a>
+                    </li>
+
+                    <li class="@("Emergency Contact".Equals(PageName) ? "active" : "")">
+                        <a @(ViewBag.type == null ? "redirect-to=Emergency_InfoE" : "href =/view/Emergency_Info?id="+@ViewBag.Id) title="Emergency Information" data-filter-tags="Emergency Information">
+                            <span class="nav-link-text">Emergency Information</span>
+                        </a>
+                    </li>
+                    <li class="@("Official Documents".Equals(PageName) ? "active" : "")">
+                        <a @(ViewBag.type == null ? "redirect-to=DocumentsE" : "href =/view/Documents?id="+@ViewBag.Id)  title="Documents" data-filter-tags="Documents">
+                            <span class="nav-link-text">Documents</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    }
+}

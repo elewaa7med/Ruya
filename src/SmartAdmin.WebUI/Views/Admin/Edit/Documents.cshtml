@@ -1,0 +1,293 @@
+﻿@model SmartAdmin.WebUI.Models.Documents.DocumentUpdateModel
+@{
+    ViewData["Title"] = "Student's Official Documents";
+    ViewData["PageName"] = "Official Documents";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-edit'></i> Student's Official Documents";
+    ViewData["Category1"] = "Form Stuff";
+    ViewData["PageDescription"] = "";
+    ViewData["error"] = ViewBag.Errors;
+}
+<form method="post" enctype="multipart/form-data" class="was-validated">
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Documents
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+
+                        <div class="panel-tag">
+                            <p>
+                                It is critical that you complete this section accurately. Applications that are incomplete or incorrect will be rejected.
+                                All documents must be PDF or JPEG , NO more than 2MB. </strong>
+                            </p>
+                            <p><strong>Note: </strong> : The documentation must be printed out and submitted in person in order to be eligible to take the admissions test</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label"> Birth Certificate( English Or Arabic copy) </label> <span class="text-danger"> *</span>
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile" asp-for="BirthCertificatePathFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    @if (Model.BirthCertificatePath != null)
+                                    {
+                                        <input type="hidden" asp-for="BirthCertificatePath" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-default waves-effect waves-themed" type="button" id="inputGroupFileAddon04" onclick="download('@("assets/Documents/"+Model.BirthCertificatePath)')">Download</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label"> Family national ID Front side (for Saudis) <br /> Or Fathers iqama id (for non-saudis)</label> <span class="text-danger"> *</span>
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile" asp-for="FamilyNationIDorFatherIqamaFronPathFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    @if (Model.FamilyNationIDorFatherIqamaFronPath != null)
+                                    {
+                                        <input type="hidden" asp-for="FamilyNationIDorFatherIqamaFronPath" />
+
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-default waves-effect waves-themed" type="button" id="inputGroupFileAddon04" onclick="download('@("assets/Documents/"+Model.FamilyNationIDorFatherIqamaFronPath)')">Download</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label"> Family national ID Back side (for Saudis) <br /> Or Mother’s iqama id (for non-saudis)</label> <span class="text-danger"> *</span>
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile" asp-for="FamilyNationIDorMotherIqamabackPathFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    @if (Model.FamilyNationIDorMotherIqamabackPath != null)
+                                    {
+                                        <input type="hidden" asp-for="FamilyNationIDorMotherIqamabackPath" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-default waves-effect waves-themed" type="button" id="inputGroupFileAddon04" onclick="download('@("assets/Documents/"+Model.FamilyNationIDorMotherIqamabackPath)')">Download</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label"> Student’s immunization record</label> <span class="text-danger"> *</span>
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile" asp-for="StudentImmunizationRecordPathFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    @if (Model.StudentImmunizationRecordPath != null)
+                                    {
+                                        <input type="hidden" asp-for="StudentImmunizationRecordPath" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-default waves-effect waves-themed" type="button" id="inputGroupFileAddon04" onclick="download('@("assets/Documents/"+Model.StudentImmunizationRecordPath)')">Download</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label">Student’s passport</label> <span class="text-danger"> *</span>
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile" asp-for="StudentPassportPathFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    @if (Model.StudentPassportPath != null)
+                                    {
+                                        <input type="hidden" asp-for="StudentPassportPath" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-default waves-effect waves-themed" type="button" id="inputGroupFileAddon04" onclick="download('@("assets/Documents/"+Model.StudentPassportPath)')">Download</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label">Student’s most recent grade transcript</label> @*<span class="text-danger"> *</span>*@
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile" asp-for="StudentMostGradeTranscriptPathFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    @if (Model.StudentMostGradeTranscriptPath != null)
+                                    {
+                                        <input type="hidden" asp-for="StudentMostGradeTranscriptPath" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-default waves-effect waves-themed" type="button" id="inputGroupFileAddon04" onclick="download('@("assets/Documents/"+Model.StudentMostGradeTranscriptPath)')">Download</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label"> Medical Clearance certificate </label> 
+                                <div class="row">
+                                    <div class="input-group col-sm-7">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile" asp-for="StudentmedicalClearanceCertificatePathFile">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+                                        @if (Model.StudentmedicalClearanceCertificatePath != null)
+                                        {
+                                            <input type="hidden" asp-for="StudentmedicalClearanceCertificatePath" />
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-default waves-effect waves-themed" type="button" id="inputGroupFileAddon04" onclick="download('@("assets/Documents/"+Model.StudentmedicalClearanceCertificatePath)')">Download</button>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <a href="assets/RuyaDocuments/DocumentPageFile/Student's Medical Clearance Certificate.pdf" target="_blank">Student's Medical Clearance Certificate.pdf</a>
+                                        <br />
+                                        (Print it out, fill it by a physician and then upload it.)
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label">4*6 photograph</label> <span class="text-danger"> *</span>
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile" asp-for="Student64PhotoPathFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    @if (Model.Student64PhotoPath != null)
+                                    {
+                                        <input type="hidden" asp-for="Student64PhotoPath" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-default waves-effect waves-themed" type="button" id="inputGroupFileAddon04" onclick="download('@("assets/Documents/"+Model.Student64PhotoPath)')">Download</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label">Ruya school administrational fees receipt</label> <span class="text-danger"> *</span>
+                                <div class="row">
+                                    <div class="input-group col-sm-7">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile" asp-for="RuyaschoolAdministrationalFeesPathFile">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+                                        @if (Model.RuyaschoolAdministrationalFeesPath != null)
+                                        {
+                                            <input type="hidden" asp-for="RuyaschoolAdministrationalFeesPath" />
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-default waves-effect waves-themed" type="button" id="inputGroupFileAddon04" onclick="download('@("assets/Documents/"+Model.RuyaschoolAdministrationalFeesPath)')">Download</button>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <a href="assets/RuyaDocuments/DocumentPageFile/Registration Policy.pdf" target="_blank">Registration Policy.pdf</a>
+                                        <br />
+                                        (Upload the transaction payment receipt)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label"> Father’s passport (For Non Saudi)</label> @*<span class="text-danger"> *</span>*@
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile" asp-for="FahterPassportPathFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    @if (Model.FahterPassportPath != null)
+                                    {
+                                        <input type="hidden" asp-for="FahterPassportPath" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-default waves-effect waves-themed" type="button" id="inputGroupFileAddon04" onclick="download('@("assets/Documents/"+Model.FahterPassportPath)')">Download</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label">Mother’s passport (for non-saudis)</label> @*<span class="text-danger"> *</span>*@
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile" asp-for="MotherPassportPathFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    @if (Model.MotherPassportPath != null)
+                                    {
+                                        <input type="hidden" asp-for="MotherPassportPath" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-default waves-effect waves-themed" type="button" id="inputGroupFileAddon04" onclick="download('@("assets/Documents/"+Model.MotherPassportPath)')">Download</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label"> Student’s Iqama (for non-saudis)</label> @*<span class="text-danger"> *</span>*@
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile" asp-for="StudentIqamaPathFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    @if (Model.StudentIqamaPath != null)
+                                    {
+                                        <input type="hidden" asp-for="StudentIqamaPath" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-default waves-effect waves-themed" type="button" id="inputGroupFileAddon04" onclick="download('@("assets/Documents/"+Model.StudentIqamaPath)')">Download</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-xl-12 mb-3">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="defaultUnchecked" asp-for="DocusAuthentic">
+                                    <label class="custom-control-label" for="defaultUnchecked">I hereby confirm that all statements made in this application and all documents submitted are true and authentic, and agree that any misrepresentation may lead to immediate withdrawal.</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xl-12 mb-3 pl-4">
+            <button type="submit" asp-page-handler="Documents" asp-route-dir="previous" id="previous-up" class="btn btn-primary waves-effect waves-themed mr-3">Previous</button>
+            <button type="submit" asp-page-handler="Documents" asp-route-dir="submit" class="btn btn-success waves-effect waves-themed mr-3">Submit</button>
+        </div>
+    </div>
+</form>
+
+
+
+@section ScriptsBlock {
+<script type="text/javascript">
+    var example_gridsize = $("#example-gridsize");
+    $("#gridrange").on("input change", function () {
+        //do something
+        example_gridsize.attr("placeholder", ".col-" + $(this).val());
+        example_gridsize.parent().removeClass().addClass("col-" + $(this).val())
+        console.log("col-" + $(this).val());
+    });
+    function download(URL){
+        window.open(URL, '_blank');
+    }
+</script>
+}
